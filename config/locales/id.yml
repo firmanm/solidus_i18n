@@ -1,4 +1,11 @@
 id:
+  activemodel:
+    attributes:
+      spree/order_cancellations:
+        quantity: Kuantitas
+        state: State
+        shipment: Pengiriman
+        cancel: Cancel
   activerecord:
     attributes:
       spree/address:
@@ -11,12 +18,26 @@ id:
         phone: Telepon
         state: Provinsi
         zipcode: Kode Pos
+      spree/adjustment:
+        adjustable: Adjustable
+        amount: Amount
+        label: Description
+        name: Name
+        state: State
+        adjustment_reason_id: Reason
+      spree/adjustment_reason:
+        active: Active
+        code: Code
+        name: Name
+        state: State
       spree/calculator/tiered_flat_rate:
-        preferred_base_amount:
-        preferred_tiers:
+        preferred_base_amount: Base Amount
+        preferred_tiers: Tiers
       spree/calculator/tiered_percent:
-        preferred_base_percent:
-        preferred_tiers:
+        preferred_base_percent: Base Percent
+        preferred_tiers: Tiers
+      spree/carton:
+        tracking: Tracking
       spree/country:
         iso: ISO
         iso3: ISO3
@@ -31,8 +52,15 @@ id:
         number: Nomor
         verification_value: Kode Verifikasi
         year: Tahun
+      spree/image:
+        alt: Alternative Text
+        attachment: Filename
       spree/inventory_unit:
-        state: Status
+        state: State
+      spree/legacy_user:
+        email: Email
+        password: Password
+        password_confirmation: Password Confirmation
       spree/line_item:
         price: Harga
         quantity: Kuantitas
@@ -73,7 +101,13 @@ id:
       spree/payment:
         amount: Jumlah
       spree/payment_method:
+        active: Actif
+        auto_capture: Auto Capture
+        description: Deskripsi
+        display_on: Display
         name: Nama
+        preference_source: Preference Source
+        type: Provider
       spree/product:
         available_on: Tersedia Pada
         cost_currency: Kurs Biaya
@@ -84,6 +118,19 @@ id:
         on_hand: Yang Tersedia
         shipping_category: Kategori Pengiriman
         tax_category: Kategori Pajak
+        master_price: Master Price
+        meta_description: Meta Description
+        meta_keywords: Meta Keywords
+        meta_title: Meta Title
+        price: Harga
+        promotionable: Promotable
+        shipping_category: Kategori Pengiriman
+        slug: Slug
+        tax_category: Tax Category
+        weight: Tinggi
+        width: Lebar
+      spree/product_property:
+        value: Value
       spree/promotion:
         advertise: Iklan
         code: Kode
@@ -101,6 +148,21 @@ id:
         presentation: Presentasi
       spree/prototype:
         name: Nama
+      spree/refund_reason:
+        active: Active
+        name: Name
+        code: Code
+      spree/reimbursement:
+        created_at: "Date/Time"
+        number: Number
+        reimbursement_status: Status
+        total: Total
+      spree/reimbursement/credit:
+        amount: Amount
+      spree/reimbursement_type:
+        name: Name
+        type: Type
+        created_at: "Date/Time"
       spree/return_authorization:
         amount: Jumlah
       spree/role:
@@ -368,35 +430,145 @@ id:
     address1: Alamat
     address2: Alamat (lanjutan)
     adjustable:
+    adjustment_labels:
+      line_item: '%{promotion} (%{promotion_name})'
+      order: '%{promotion} (%{promotion_name})'
+      tax_rates:
+        sales_tax: '%{name}'
+        vat: '%{name} (Included in Price)'
+        sales_tax_with_rate: '%{name} %{amount}'
+        vat_with_rate: '%{name} %{amount} (Included in Price)'
+        sales_tax_refund: 'Refund: %{name}'
+        vat_refund: 'Refund: %{name} (Included in Price)'
+        sales_tax_refund_with_rate: 'Refund: %{name} %{amount}'
+        vat_refund_with_rate: 'Refund: %{name} %{amount} (Included in Price)'
+    adjustment_reasons: Adjustment Reasons
     adjustment: Penyesuaian
     adjustment_amount: Jumlah
     adjustment_successfully_closed: Penyesuaian telah berhasil ditutup!
     adjustment_successfully_opened: Penyesuaian telah berhasil dibuka!
     adjustment_total: Total Penyesuaian
-    adjustments: Penambahan
     admin:
+      general_settings:
+        edit:
+          no_cart_tax_country: "No taxes on carts without address"
+      images:
+        index:
+          choose_files: Choose files to upload
+          drag_and_drop: or drag and drop them here
+          image_process_failed: Server failed to process the image
+          upload_images: Upload Images
+      payments:
+        source_forms:
+          storecredit:
+            not_supported: "Creating store credit payments via the admin is not currently supported."
+      prices:
+        any_country: "Any Country"
+        index:
+          amount_greater_than: Amount greater than
+          amount_less_than: Amount less than
+          new_price: New Price
+        edit:
+          edit_price: Edit Price
+        new:
+          new_price: New Price
+      promotions:
+        form:
+          starts_at_placeholder: Immediately
+          expires_at_placeholder: Never
+      store_credits:
+        add: "Add store credit"
+        amount_authorized: "Amount Authorized"
+        amount_credited: "Amount Credited"
+        amount_used: "Amount Used"
+        back_to_edit: "Back to edit"
+        back_to_user_list: "Back to user list"
+        back_to_store_credit_list: "Store credit list"
+        change_amount: "Change amount"
+        created_by: "Created By"
+        credit_type: "Credit type"
+        current_balance: "Current balance:"
+        edit: "Editing store credit"
+        edit_amount: "Editing store credit amount"
+        history: "Store credit history"
+        invalidate_store_credit: "Invalidating store credit"
+        invalidated: "Invalidated"
+        issued_on: "Issued On"
+        new: "New store credit"
+        no_store_credit_selected: "No store credit was selected"
+        payment_originator: "Payment - Order #%{order_number}"
+        reason_for_updating: "Reason for updating"
+        refund_originator: "Refund - Order #%{order_number}"
+        resource_name: "store credits"
+        user_originator: "User - %{email}"
+        unable_to_create: "Unable to create store credit"
+        unable_to_update: "Unable to update store credit"
+        unable_to_delete: "Unable to delete store credit"
+        unable_to_invalidate: "Unable to invalidate store credit"
+        select_reason: "Select a reason for this store credit"
+        select_amount_update_reason: "Select a reason for updating the amount"
+        total_unused: "Total unused"
+        type_html_header: "Credit Type"
+        view: "View store credit"
+        errors:
+          cannot_change_used_store_credit: "Store credit that has been claimed cannot be changed"
+          cannot_be_modified: "cannot be modified"
+          amount_used_cannot_be_greater: "cannot be greater than the credited amount"
+          amount_authorized_exceeds_total_credit: " exceeds the available credit"
+          amount_used_not_zero: "is greater than zero. Can not delete store credit"
+          update_reason_required: "A reason for the change must be selected"
       tab:
-        configuration:
-        option_types:
-        orders:
-        overview:
-        products:
-        promotions:
-        properties:
-        prototypes:
-        reports:
-        taxonomies:
-        taxons:
-        users:
+        areas: Locations
+        checkout: Refunds and Returns
+        configuration: Configuration
+        display_order: Display Order
+        general: Store
+        option_types: Option Types
+        orders: Orders
+        overview: Overview
+        payments: Payments
+        products: Products
+        promotions: Promotions
+        promotion_categories: Promotion Categories
+        properties: Property Types
+        reports: Reports
+        rma: RMA
+        settings: Settings
+        shipping: Shipping
+        stock: Stock
+        stock_items: Store Stock
+        stock_transfers: Stock Transfers
+        taxes: Taxes
+        taxonomies: Taxonomies
+        taxons: Taxons
+        users: Users
+      taxons:
+        display_order: Display Order
       user:
-        account:
-        addresses:
-        items:
-        items_purchased:
-        order_history:
-        order_num:
-        orders:
-        user_information:
+        account: Account
+        addresses: Addresses
+        items: Items
+        items_purchased: Items Purchased
+        order_history: Order History
+        order_num: "Order #"
+        orders: Orders
+        store_credit: Store Credit
+        user_information: User Information
+      users:
+        user_page_actions:
+          create_order: Create order for this user
+      variants:
+        table_filter:
+          show_deleted: Show deleted variants
+        new:
+          new_variant: New variant
+        edit:
+          edit_variant: Edit Variant
+        form:
+          dimensions: Dimensions
+          use_product_tax_category: Use Product Tax Category
+          pricing: Pricing
+          pricing_hint: These values are populated from the product details page and can be overridden below
     administration: Administrasi
     advertise:
     agree_to_privacy_policy: Setuju kepada Kebijakan Privasi
@@ -1106,9 +1278,11 @@ id:
     security_settings: Pengaturan Kemanan
     select: Pilih
     select_a_return_authorization_reason:
-    select_a_stock_location:
+    select_a_stock_location: Pilih Lokasi Stok
     select_from_prototype: Pilih dari Prototipe
     select_stock: Pilih stok
+    select_a_reason: Select a reason
+    selected_quantity_not_available: ! 'selected of %{item} is not available.'
     send_copy_of_all_mails_to: Kirim Salinan ke semua
     send_mails_as: Kirim pesan sebagai
     server: Server
@@ -1315,7 +1489,13 @@ id:
       unpaid_amount_not_zero:
     value: Nilai
     variant: Varian
-    variant_placeholder: Varian placeholder
+    variant_placeholder: Pilih Varian Produk
+    variant_pricing: Variant Pricing
+    variant_properties: Variant Properties
+    variant_search: Variant Search
+    variant_search_placeholder: "SKU or Option Value"
+    variant_to_add: Variant to add
+    variant_to_be_received: Variant to be received
     variants: Varian
     version: Versi
     void: Batalkan
