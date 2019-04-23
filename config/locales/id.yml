@@ -6,6 +6,18 @@ id:
         state: State
         shipment: Pengiriman
         cancel: Cancel
+    errors:
+      models:
+        spree/fulfilment_changer:
+          attributes:
+            current_shipment:
+              can_not_have_backordered_inventory_units: has backordered inventory
+                units
+              has_already_been_shipped: has already been shipped
+            desired_shipment:
+              can_not_transfer_within_same_shipment: can not be same as current shipment
+              not_enough_stock_at_desired_location: not enough stock in desired stock
+                location
   activerecord:
     attributes:
       spree/address:
@@ -185,19 +197,46 @@ id:
         name: Nama
         seo_title: Judul SEO
         url:
+      spree/store_credit:
+        amount: Amount
+        amount_authorized: Amount Authorized
+        amount_credited: Amount Credited
+        amount_used: Amount Used
+        category_id: Credit Type
+        created_at: Issued On
+        created_by_id: Created By
+        invalidated_at: Invalidated
+        memo: Memo
+      spree/store_credit_event:
+        action: Action
+        amount_remaining: Total Unused
+        user_total_amount: Total Amount
+      spree/store_credit_update_reason:
+        name: Name
       spree/tax_category:
         description: Deskripsi
+        is_default: Default
         name: Nama
+        tax_code: Tax Code
       spree/tax_rate:
-        amount: Persentase
+        amount: Rate
+        expires_at: Expiration Date
         included_in_price: Termasuk dalam Harga
+        name: Name
         show_rate_in_label: Tunjukan persentase di label
+        starts_at: Start Date
       spree/taxon:
         name: Nama
         permalink: Permalink
         position: Posisi
       spree/taxonomy:
         name: Nama
+      spree/tracker:
+        one: Analytics Tracker
+        other: Analytics Trackers
+      spree/transfer_item:
+        one: Transfer Item
+        other: Transfer Items
       spree/user:
         email: Email
         password: Kata Sandi
@@ -429,19 +468,15 @@ id:
     additional_item: Tambahan Harga Barang
     address1: Alamat
     address2: Alamat (lanjutan)
-    adjustable:
+    adjustable: Adjustable
     adjustment_labels:
-      line_item: '%{promotion} (%{promotion_name})'
-      order: '%{promotion} (%{promotion_name})'
+      line_item: "%{promotion} (%{promotion_name})"
+      order: "%{promotion} (%{promotion_name})"
       tax_rates:
-        sales_tax: '%{name}'
-        vat: '%{name} (Included in Price)'
-        sales_tax_with_rate: '%{name} %{amount}'
-        vat_with_rate: '%{name} %{amount} (Included in Price)'
-        sales_tax_refund: 'Refund: %{name}'
-        vat_refund: 'Refund: %{name} (Included in Price)'
-        sales_tax_refund_with_rate: 'Refund: %{name} %{amount}'
-        vat_refund_with_rate: 'Refund: %{name} %{amount} (Included in Price)'
+        sales_tax: "%{name}"
+        sales_tax_with_rate: "%{name} %{amount}"
+        vat: "%{name} (Included in Price)"
+        vat_with_rate: "%{name} %{amount} (Included in Price)"
     adjustment_reasons: Adjustment Reasons
     adjustment: Penyesuaian
     adjustment_amount: Jumlah
